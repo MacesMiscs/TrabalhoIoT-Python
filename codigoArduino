@@ -3,14 +3,12 @@ int echoPin = 4;
 int pir_Pin = 6;
 int led_Pin = 12;
 int buzzer_Pin = 13;
-int vibrate_Pin = 5;
 
 void setup(){
 //Inicializa componentes
 pinMode(pir_Pin, INPUT);
 pinMode(led_Pin, OUTPUT);
 pinMode(buzzer_Pin, OUTPUT);
-pinMode(vibrate_Pin, OUTPUT);
 Serial.begin(9600);
 }
 
@@ -26,21 +24,23 @@ return pulseIn(echoPin, HIGH);
 }
 
 void loop(){
- int distanceThreshold=200;
+ int distanceThreshold=200; //Definição de distância para ativar o alarme
  int cm = 0.01723 * readUltrasonicDistance(3, 4);
-  // Ações baseadas em leituras
-  if (cm < distanceThreshold){
+  if (cm < distanceThreshold){ //Ativa alarme se o detector ultrassonico detectar algo nessa distancia
+  digitalWrite(led_Pin, HIGH);
+  digitalWrite(buzzer_Pin, HIGH);
   Serial.println("Ultrassonico detectou algo");
+  delay(5000); //Tempo em milissegundos para desligar o alarme, caso não esteja mais detectando algo
   }
-  if (digitalRead(pir_Pin)==HIGH){
-  Serial.println("Pir detectou algo");
-  }
-  if (cm < distanceThreshold && digitalRead(pir_Pin)==HIGH){
+
+  if (digitalRead(pir_Pin)==HIGH){ //Ativa o alarme se o sensor pir detectar algo
     digitalWrite(led_Pin, HIGH);
     digitalWrite(buzzer_Pin, HIGH);
-    digitalWrite(vibrate_Pin, HIGH);
-    Serial.println("Detectado");
+    Serial.println("PIR detectou algo");
+    delay(5000);
   }
-  else{
+  else{ //Desliga o alarme
     digitalWrite(led_Pin, LOW);
+    digitalWrite(buzzer_Pin, LOW);
   }
+}
