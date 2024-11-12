@@ -1,3 +1,5 @@
+//Código para o arduino em si
+
 int triggerPin = 3;
 int echoPin = 4;
 int pir_Pin = 6;
@@ -29,14 +31,14 @@ void loop(){
   if (cm < distanceThreshold){ //Ativa alarme se o detector ultrassonico detectar algo nessa distancia
   digitalWrite(led_Pin, HIGH);
   digitalWrite(buzzer_Pin, HIGH);
-  Serial.println("Ultrassonico detectou algo");
+  Serial.println("ativado");
   delay(5000); //Tempo em milissegundos para desligar o alarme, caso não esteja mais detectando algo
   }
 
   if (digitalRead(pir_Pin)==HIGH){ //Ativa o alarme se o sensor pir detectar algo
     digitalWrite(led_Pin, HIGH);
     digitalWrite(buzzer_Pin, HIGH);
-    Serial.println("PIR detectou algo");
+    Serial.println("ativado");
     delay(5000);
   }
   else{ //Desliga o alarme
