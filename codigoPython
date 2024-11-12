@@ -1,0 +1,20 @@
+//Código para a parte do python no computador
+import serial
+import time
+
+while True:
+    try:
+        conexao=serial.Serial('COM3',9600)
+        print('Conectado com exito')
+        break
+    
+    except:
+        pass
+while True:
+    conexao.readline()
+    if conexao.readline()=="ativado":
+            hora_local=time.localtime()
+            hora_atual=time.strftime("%H: %M: %S",hora_local)
+            dia=time.getDay
+            alarme = open("Alarmes.txt", "x")
+            alarme.append("Alarme ativado as ", hora_local, "dia: ", dia,"\n")
