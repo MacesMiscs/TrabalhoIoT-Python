@@ -1,9 +1,9 @@
-//Código para a parte do python no computador
-import serial
-import time
-import datetime
+#Código para a parte do python no computador
+import serial #Biblioteca para interagir com o arduino via porta serial
+import time #Biblioteca para obter o horário
+import datetime #Biblioteca para obter o dia
 
-while True:
+while True:  #Loop para conectar à porta serial
     try:
         conexao=serial.Serial('COM3',9600)
         print('Conectado com exito')
@@ -12,12 +12,12 @@ while True:
     except:
         pass
 while True:
-    conexao.readline()
-    if conexao.readline()=="ativado":
-            hora_local = time.localtime()
-            hora_atual = time.strftime("%H: %M: %S", hora_local)
-            dia = datetime.datetime.now()
-            dia = dia.strftime("%x")
-            alarme = open("Alarmes.txt", "a")
-            relato=("Alarme ativado as ", hora_atual, " Dia: ", dia, "\n")
-            alarme.writelines(relato)
+    conexao.readline() #Linha para ler dados da porta serial enquanto estiver conectado
+    if conexao.readline()=="ativado": #Condição para criar um arquivo novo
+            hora_local = time.localtime() #Variável para obter a hora local
+            hora_atual = time.strftime("%H: %M: %S", hora_local) #Variável para converter a hora em um formato string
+            dia = datetime.datetime.now() #Variável para obter o dia atual no computador
+            dia = dia.strftime("%x") #Conversão para string
+            alarme = open("Alarmes.txt", "a") #Criação de arquivo se não existir, e então adicionar o texto abaixo na próxima linha
+            relato=("Alarme ativado as ", hora_atual, " Dia: ", dia, "\n") #Juntando todas as informações a serem escritas no Alarmes.txt
+            alarme.writelines(relato) #Escreve o relato anterior no Alarmes.txt
