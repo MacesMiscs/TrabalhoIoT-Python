@@ -1,6 +1,7 @@
 //Código para a parte do python no computador
 import serial
 import time
+import datetime
 
 while True:
     try:
@@ -13,8 +14,10 @@ while True:
 while True:
     conexao.readline()
     if conexao.readline()=="ativado":
-            hora_local=time.localtime()
-            hora_atual=time.strftime("%H: %M: %S",hora_local)
-            dia=time.getDay
-            alarme = open("Alarmes.txt", "x")
-            alarme.append("Alarme ativado as ", hora_local, "dia: ", dia,"\n")
+            hora_local = time.localtime()
+            hora_atual = time.strftime("%H: %M: %S", hora_local)
+            dia = datetime.datetime.now()
+            dia = dia.strftime("%x")
+            alarme = open("Alarmes.txt", "a")
+            relato=("Alarme ativado as ", hora_atual, " Dia: ", dia, "\n")
+            alarme.writelines(relato)
